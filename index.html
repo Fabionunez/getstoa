@@ -32,12 +32,43 @@
       text-align: center;
     }
 
-    /* Logo Stoα en Georgia - aún más grande */
+    /* Logo Stoα con animación */
     .logo {
       font-family: Georgia, serif;
       font-size: 80px;
       margin-bottom: 30px;
       letter-spacing: 2px;
+      text-align: center;
+      position: relative;
+      height: 100px;
+    }
+
+    /* Estructura para animación */
+    .logo-sto {
+      display: inline-block;
+      opacity: 1;
+      position: absolute;
+      visibility: hidden;
+      z-index: 1; /* Por debajo de la máscara */
+    }
+
+    .logo-alpha {
+      display: inline-block;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3; /* Por encima de todo */
+    }
+
+    /* Capa negra que oculta "Sto" cuando pasa detrás de α */
+    .alpha-mask {
+      position: absolute;
+      height: 100px;
+      width: 250px; /* Ancho inicial */
+      background-color: #121212; /* Mismo color que el fondo */
+      z-index: 2; /* Entre Sto y α */
+      left: 50%;
+      transform: translateX(-20%); /* Ajustado para cubrir más a la derecha */
     }
 
     /* Texto explicativo más corto y con mayor transparencia */
@@ -117,7 +148,11 @@
 
 <body>
   <div class="container">
-    <div class="logo">Stoα</div>
+    <div class="logo">
+      <span class="logo-sto">Sto</span>
+      <div class="alpha-mask"></div>
+      <span class="logo-alpha">α</span>
+    </div>
     <div class="description">
       Estudia el estoicismo con las cartas de Séneca.
     </div>
@@ -139,6 +174,95 @@
       Política de Privacidad
     </a>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const logo = document.querySelector('.logo');
+      const logoSto = document.querySelector('.logo-sto');
+      const logoAlpha = document.querySelector('.logo-alpha');
+      const alphaMask = document.querySelector('.alpha-mask');
+      
+      // Medidas iniciales
+      const logoWidth = logo.offsetWidth;
+      const stoWidth = logoSto.offsetWidth;
+      const alphaWidth = logoAlpha.offsetWidth;
+      
+      // Posición final deseada (donde estarían en el logo estático)
+      const totalWidth = stoWidth + alphaWidth;
+      const leftOffset = (logoWidth - totalWidth) / 2;
+      
+      // Posición final para cada elemento
+      const stoFinalLeft = leftOffset;
+      const alphaFinalLeft = leftOffset + stoWidth;
+      
+      // Posicionar "Sto" exactamente a ras del borde derecho de α inicialmente
+      const alphaInitialLeft = logoWidth / 2 - alphaWidth / 2; // Centro de la página
+      const stoInitialLeft = alphaInitialLeft + alphaWidth - 5; // Ligeramente superpuesto con α
+      logoSto.style.left = stoInitialLeft + 'px';
+      
+      // Ajustar máscara para asegurar cobertura total
+      alphaMask.style.width = (stoWidth + alphaWidth + 100) + 'px'; // Ancho dinámico basado en contenido
+      
+      // Cambio a 1.5 segundos de delay inicial
+      setTimeout(function() {
+        // Hacer visible "Sto" inmediatamente
+        logoSto.style.visibility = 'visible';
+        
+        // Iniciar la animación de "Sto" primero - más rápida con desaceleración pronunciada
+        const stoAnimation = logoSto.animate([
+          { left: stoInitialLeft + 'px' },
+          { left: stoFinalLeft + 'px' }
+        ], {
+          duration: 1000, // Reducido a 1 segundo
+          easing: 'cubic-bezier(0, 0.7, 0.3, 1)', // Desaceleración más pronunciada
+          fill: 'forwards'
+        });
+        
+        // Pequeño retraso para la animación de α (50ms)
+        setTimeout(function() {
+          // Mover α desde el centro a su posición final
+          logoAlpha.animate([
+            { left: '50%', transform: 'translateX(-50%)' },
+            { left: alphaFinalLeft + 'px', transform: 'translateX(0)' }
+          ], {
+            duration: 950, // Ligeramente más corta para terminar al mismo tiempo
+            easing: 'cubic-bezier(0, 0.7, 0.3, 1)', // Misma desaceleración
+            fill: 'forwards'
+          });
+          
+          // Mover la máscara junto con α
+          alphaMask.animate([
+            { 
+              left: '50%', 
+              transform: 'translateX(-20%)',
+              width: (stoWidth + alphaWidth + 100) + 'px' 
+            },
+            { 
+              left: alphaFinalLeft + 'px',
+              transform: 'translateX(0)',
+              width: alphaWidth + 'px'
+            }
+          ], {
+            duration: 950,
+            easing: 'cubic-bezier(0, 0.7, 0.3, 1)', // Misma desaceleración
+            fill: 'forwards'
+          });
+        }, 50);
+        
+        // Al finalizar la animación, establecer las posiciones finales
+        setTimeout(function() {
+          // Eliminar la máscara y establecer el logo como texto normal
+          alphaMask.style.display = 'none';
+          logoSto.style.position = 'static';
+          logoAlpha.style.position = 'static';
+          logoSto.style.transform = 'none';
+          logoAlpha.style.transform = 'none';
+          
+          logo.innerHTML = 'Stoα';
+        }, 1100); // Ajustado al nuevo tiempo de animación
+      }, 1500); // Cambiado a 1.5 segundos
+    });
+  </script>
 </body>
 
 </html>
