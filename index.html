@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stoα - Estudia el Estoicismo</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #121212;
+      /* Fondo oscuro */
+      color: #e0e0e0;
+      /* Texto gris claro para buen contraste */
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Logo Stoα en Georgia - aún más grande */
+    .logo {
+      font-family: Georgia, serif;
+      font-size: 80px;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+    }
+
+    /* Texto explicativo más corto y con mayor transparencia */
+    .description {
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 0 auto 40px;
+      max-width: 500px;
+      color: rgba(224, 224, 224, 0.7);
+    }
+
+    /* Botón en escala de grises */
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: #333;
+      /* Gris oscuro */
+      color: #fff;
+      /* Texto blanco */
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 16px;
+      border: 1px solid #444;
+      /* Sutil borde */
+      transition: background-color 0.3s ease;
+    }
+
+    .download-btn:hover {
+      background-color: #444;
+      /* Aclara un poco al pasar el ratón */
+    }
+
+    .download-btn svg {
+      fill: currentColor;
+      /* Para heredar el color del texto */
+    }
+
+    /* Enlace a la Política de Privacidad */
+    .privacy-link {
+      display: block;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #888;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .privacy-link:hover {
+      color: #aaa;
+    }
+
+    /* Media query para dispositivos pequeños */
+    @media (max-width: 600px) {
+      .logo {
+        font-size: 60px;
+      }
+
+      .description {
+        font-size: 16px;
+        margin-bottom: 30px;
+      }
+
+      .download-btn {
+        font-size: 14px;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="logo">Stoα</div>
+    <div class="description">
+      Estudia el estoicismo con las cartas de Séneca.
+    </div>
+    <!-- Botón con ícono de Apple en SVG -->
+    <a class="download-btn" href="https://apps.apple.com/es" target="_blank">
+      <svg width="20" height="20" viewBox="0 0 384 512" aria-hidden="true">
+        <path d="M318.7 268.3c-.2-37 16.2-64.8 49.7-85.6-18.1-26.5-45.7-41.4-83.4-46.8-35.1-5.1-65.3 
+          20.9-82.2 20.9-17.4 0-47.7-20.3-78.4-19.7-40.2 .6-74.6 23.2-94.3 59-40.3 74.7-10.3 185.4 
+          28.9 246.3 19.1 28.9 41.9 61.4 71.8 60.2 29-.9 39.9-19.3 74.7-19.3s45.9 19.3 76.9 18.7c30.8-.6 
+          50.3-28.7 69.2-57.8 21.6-32.1 30.5-63.2 30.8-64.9-.6-.2-59.2-22.6-59.4-89.1zM256.8 86.9c15.8-19.2 
+          26.5-46.1 23.6-72.9-22.8 .9-50.4 15.2-66.6 34.4-14.5 16.8-27.4 43.8-23.9 69.5 25.1 2 
+          51.2-12.6 66.9-31z" />
+      </svg>
+      Consíguelo en el App Store
+    </a>
+
+    <!-- Enlace a la Política de Privacidad -->
+    <a class="privacy-link" href="#politica-privacidad" target="_blank">
+      Política de Privacidad
+    </a>
+  </div>
+</body>
+
+</html>
