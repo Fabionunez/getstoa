@@ -127,6 +127,48 @@
       color: #aaa;
     }
 
+    /* Estilos para el mockup del iPhone */
+    .phone-mockups {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 40px auto 20px;
+      max-width: 900px;
+    }
+
+    .phone-mockup {
+      width: 220px;
+      position: relative;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .iphone-svg {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.5));
+    }
+
+    .screen-container {
+      position: absolute;
+      top: 6.5%;
+      left: 6%;
+      width: 88%;
+      height: 87%;
+      overflow: hidden;
+      border-radius: 25px;
+      background-color: #fff;
+    }
+
+    .screen-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background-color: #fff;
+    }
+
     /* Media query para dispositivos pequeños */
     @media (max-width: 600px) {
       .logo {
@@ -185,6 +227,29 @@
       opacity: 1 !important;
       transform: translateY(0) !important;
     }
+
+    /* Estilos responsivos para los mockups */
+    @media (max-width: 768px) {
+      .phone-mockups {
+        gap: 10px;
+      }
+      
+      .phone-mockup {
+        width: 180px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .phone-mockups {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .phone-mockup {
+        width: 220px;
+        margin-bottom: 20px;
+      }
+    }
   </style>
 </head>
 
@@ -196,7 +261,7 @@
       <span class="logo-alpha">α</span>
     </div>
     <div class="description">
-      Estudia el estoicismo con las cartas de Séneca.
+      Descubre el estoicismo a través de Séneca.
     </div>
     <!-- Botón con ícono de Apple en SVG -->
     <a class="download-btn" href="https://apps.apple.com/es" target="_blank">
@@ -211,8 +276,38 @@
       Consíguelo en el App Store
     </a>
 
+    <!-- Mockup individual de iPhone con screen2.png -->
+    <div class="single-mockup" style="margin: 40px auto; max-width: 250px; opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease, transform 0.5s ease;">
+      <svg class="iphone-svg" viewBox="0 0 270 550" xmlns="http://www.w3.org/2000/svg">
+        <!-- Cuerpo del iPhone -->
+        <rect x="10" y="10" width="250" height="530" rx="40" fill="#1d1d1d" />
+        <!-- Borde plateado -->
+        <rect x="12" y="12" width="246" height="526" rx="38" fill="none" stroke="#333" stroke-width="2" />
+        <!-- Pantalla -->
+        <rect x="22" y="22" width="226" height="486" rx="25" fill="#000" />
+        <!-- Notch del iPhone -->
+        <path d="M135,22 
+               C160,22 180,22 195,22 
+               C195,32 195,37 195,42 
+               L175,42 
+               C170,42 165,47 160,47
+               C150,47 120,47 110,47
+               C105,47 100,42 95,42
+               L75,42
+               C75,37 75,32 75,22
+               C90,22 110,22 135,22" fill="#010101" />
+        <!-- Altavoz en el notch -->
+        <rect x="125" y="32" width="20" height="3" rx="1.5" fill="#222" />
+        <!-- Cámara en el notch -->
+        <circle cx="155" cy="33.5" r="3" fill="#222" />
+      </svg>
+      <div class="screen-container" style="position: absolute; top: 6.5%; left: 6%; width: 88%; height: 87%; overflow: hidden; border-radius: 25px; background-color: #000;">
+        <img src="screen2.png" alt="Screenshot de la aplicación Stoa" style="width: 100%; height: 100%; object-fit: cover; background-color: #000;">
+      </div>
+    </div>
+
     <!-- Enlace a la Política de Privacidad -->
-    <a class="privacy-link" href="politica-privacidad.html">
+    <a class="privacy-link" href="politica-privacidad.html" style="display: block; margin-top: 30px; font-size: 14px; color: #888; text-decoration: none; transition: color 0.3s; text-align: center; position: relative; z-index: 1; clear: both;">
       Política de Privacidad
     </a>
   </div>
@@ -228,6 +323,7 @@
       // Seleccionar los elementos que deben aparecer después
       const description = document.querySelector('.description');
       const downloadBtn = document.querySelector('.download-btn');
+      const singleMockup = document.querySelector('.single-mockup');
       const privacyLink = document.querySelector('.privacy-link');
       
       // Medidas iniciales
@@ -248,19 +344,7 @@
       
       alphaMask.style.width = (stoWidth + alphaWidth + 100) + 'px';
       
-      // Mostrar los elementos después de 2.2 segundos
-      setTimeout(function() {
-        // Mostrar elementos con una secuencia de aparición
-        if (description) description.classList.add('fade-in');
-        setTimeout(function() {
-          if (downloadBtn) downloadBtn.classList.add('fade-in');
-          setTimeout(function() {
-            if (privacyLink) privacyLink.classList.add('fade-in');
-          }, 200);
-        }, 200);
-      }, 2200);
-      
-      // Animación del logo (mantener el código existente)
+      // Animación del logo primero
       setTimeout(function() {
         logoSto.style.visibility = 'visible';
         
@@ -269,19 +353,19 @@
           { left: stoInitialLeft + 'px' },
           { left: stoFinalLeft + 'px' }
         ], {
-          duration: 1000,
+          duration: 800,
           easing: 'cubic-bezier(0, 0.7, 0.3, 1)',
           fill: 'forwards'
         });
         
-        // Resto de la animación del logo (mantener igual)
+        // Resto de la animación del logo
         setTimeout(function() {
           // Animar alpha
           logoAlpha.animate([
             { left: '50%', transform: 'translateX(-50%)' },
             { left: alphaFinalLeft + 'px', transform: 'translateX(0)' }
           ], {
-            duration: 950,
+            duration: 750,
             easing: 'cubic-bezier(0, 0.7, 0.3, 1)',
             fill: 'forwards'
           });
@@ -299,13 +383,14 @@
               width: alphaWidth + 'px'
             }
           ], {
-            duration: 950,
+            duration: 750,
             easing: 'cubic-bezier(0, 0.7, 0.3, 1)',
             fill: 'forwards'
           });
         }, 50);
         
         // Al finalizar, mostrar el logo como texto normal
+        // y comenzar a mostrar los otros elementos
         setTimeout(function() {
           alphaMask.style.display = 'none';
           logoSto.style.position = 'static';
@@ -313,8 +398,26 @@
           logoSto.style.transform = 'none';
           logoAlpha.style.transform = 'none';
           logo.innerHTML = 'Stoα';
-        }, 1100);
-      }, 1500);
+          
+          // Después de la animación del logo, mostrar los otros elementos
+          // Mucho menos retraso aquí
+          if (description) description.classList.add('fade-in');
+          
+          setTimeout(function() {
+            if (downloadBtn) downloadBtn.classList.add('fade-in');
+            
+            // Mostrar el mockup individual
+            setTimeout(function() {
+              if (singleMockup) singleMockup.classList.add('fade-in');
+              
+              // Mostrar enlace de privacidad después del mockup
+              setTimeout(function() {
+                if (privacyLink) privacyLink.classList.add('fade-in');
+              }, 200);
+            }, 150);
+          }, 150);
+        }, 850);
+      }, 600);
     });
   </script>
 </body>
