@@ -264,7 +264,7 @@
       Descubre el estoicismo a través de Séneca.
     </div>
     <!-- Botón con ícono de Apple en SVG -->
-    <a class="download-btn" href="https://apps.apple.com/es" target="_blank">
+    <a class="download-btn" href="https://apps.apple.com/es/app/stoa/id6742376962" target="_blank">
       <svg width="20" height="20" viewBox="0 0 384 512" aria-hidden="true">
         <path d="M318.7 268.3c-.2-37 16.2-64.8 49.7-85.6-18.1-26.5-45.7-41.4-83.4-46.8-35.1-5.1-65.3 
           20.9-82.2 20.9-17.4 0-47.7-20.3-78.4-19.7-40.2 .6-74.6 23.2-94.3 59-40.3 74.7-10.3 185.4 
@@ -306,6 +306,31 @@
       </div>
     </div>
 
+    <!-- Sección Changelog -->
+    <div class="changelog" style="margin-top: 40px; background-color: #1a1a1a; border-radius: 8px; padding: 20px; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto; opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease, transform 0.5s ease;">
+      <h2 style="font-size: 22px; margin-bottom: 15px; color: #e0e0e0; text-align: center;">Changelog</h2>
+      
+      <div style="margin-bottom: 20px;">
+        <h3 style="font-size: 18px; color: #e0e0e0; margin-bottom: 10px;">v1.1</h3>
+        <ul style="list-style-type: none; padding-left: 10px; color: rgba(224, 224, 224, 0.7);">
+          <li style="margin-bottom: 8px;">- Explicaciones para el audiolibro Cartas de Séneca a Lucilio. 126h</li>
+          <li style="margin-bottom: 8px;">- Marcado automático y manual de secciones escuchadas.</li>
+          <li style="margin-bottom: 8px;">- Estadísticas de progreso de escucha.</li>
+          <li style="margin-bottom: 8px;">- Selector de velocidades de reproducción</li>
+          <li style="margin-bottom: 8px;">- Filtro por categorías de las cartas de Séneca (Amistaz, vejez, muerte, soledad...)</li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 style="font-size: 18px; color: #e0e0e0; margin-bottom: 10px;">v1.0</h3>
+        <ul style="list-style-type: none; padding-left: 10px; color: rgba(224, 224, 224, 0.7);">
+          <li style="margin-bottom: 8px;">- Audiolibro Cartas de Séneca a Lucilio. 17h</li>
+          <li style="margin-bottom: 8px;">- Apple sign in</li>
+          <li style="margin-bottom: 8px;">- Dark mode</li>
+        </ul>
+      </div>
+    </div>
+
     <!-- Enlace a la Política de Privacidad -->
     <a class="privacy-link" href="politica-privacidad.html" style="display: block; margin-top: 30px; font-size: 14px; color: #888; text-decoration: none; transition: color 0.3s; text-align: center; position: relative; z-index: 1; clear: both;">
       Política de Privacidad
@@ -324,6 +349,7 @@
       const description = document.querySelector('.description');
       const downloadBtn = document.querySelector('.download-btn');
       const singleMockup = document.querySelector('.single-mockup');
+      const changelog = document.querySelector('.changelog');
       const privacyLink = document.querySelector('.privacy-link');
       
       // Medidas iniciales
@@ -410,9 +436,14 @@
             setTimeout(function() {
               if (singleMockup) singleMockup.classList.add('fade-in');
               
-              // Mostrar enlace de privacidad después del mockup
+              // Mostrar changelog después del mockup
               setTimeout(function() {
-                if (privacyLink) privacyLink.classList.add('fade-in');
+                if (changelog) changelog.classList.add('fade-in');
+                
+                // Mostrar enlace de privacidad después del changelog
+                setTimeout(function() {
+                  if (privacyLink) privacyLink.classList.add('fade-in');
+                }, 200);
               }, 200);
             }, 150);
           }, 150);
